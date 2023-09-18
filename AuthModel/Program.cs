@@ -60,7 +60,14 @@ namespace AuthModel
                     //ClockSkew=TimeSpan.Zero (refresh token replacement)
                 };
             });
-          
+           builder.WebHost.ConfigureKestrel(opts =>
+            {
+                opts.Limits.MaxRequestBodySize = 500 * 1024 * 1024;
+            });
+            builder.Services.Configure<FormOptions>(opts =>
+            {
+                opts.MultipartBodyLengthLimit = 500 * 1024 * 1024;
+            });
 
 
 
